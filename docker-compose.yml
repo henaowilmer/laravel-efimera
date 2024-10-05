@@ -2,15 +2,15 @@ version: '3.8'
 
 services:
   app:
-    image: laravel:latest
-    container_name: laravel_app
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: laravel_app
     ports:
       - "8000:8000"
-    volumes:
-      - .:/var/www/html
+    # Temporarily comment out the volume for the initial build
+    # volumes:
+    #   - .:/var/www/html
     networks:
       - laravel_network
     command: php artisan serve --host=0.0.0.0 --port=8000

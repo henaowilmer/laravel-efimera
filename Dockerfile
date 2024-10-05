@@ -1,6 +1,6 @@
 FROM php:8.2-fpm
 
-# Instalar dependencias necesarias
+# Install necessary dependencies
 RUN apt-get update && apt-get install -y \
     curl \
     libpq-dev \
@@ -9,17 +9,17 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure zip \
     && docker-php-ext-install pdo pdo_pgsql zip
 
-# Establecer el directorio de trabajo
+# Set the working directory
 WORKDIR /var/www/html
 
-# Copiar los archivos de la aplicación al contenedor
+# Copy the application files into the container
 COPY . .
 
-# Instalar Composer
+# Install Composer globally
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Instalar dependencias de Composer
-RUN composer install
+# Install Composer dependencies
+RUN composer install --no-dev --optimize-autoloader
 
-# Ejecutar comandos después de instalar dependencias (si es necesario)
+# Generate the application key
 RUN php artisan key:generate
