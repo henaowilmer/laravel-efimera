@@ -38,3 +38,7 @@ Para instalar las dependencias de Composer, ejecuta:
 ```bash
 composer install
 ```
+
+## Notas
+Dentro del repositorio se encuentra un archivo con la colección de postman:
+[PostmanCollection](Laravel-efimera.postman_collection.json).
