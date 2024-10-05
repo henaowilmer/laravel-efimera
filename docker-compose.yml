@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app:
+    image: laravel:latest
+    container_name: laravel_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/var/www/html
+    networks:
+      - laravel_network
+    command: php artisan serve --host=0.0.0.0 --port=8000
+
+  db:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: efimera
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - laravel_network
+
+networks:
+  laravel_network:
+
+volumes:
+  db_data:
